@@ -135,8 +135,14 @@
         // Try setting a proper drag image if triggered on a dnd-handle (won't work in IE).
         if (event._dndHandle && event.dataTransfer.setDragImage) {
           var elem = angular.element(element);
-          var offestX = event.pageX - elem[0].offsetLeft;
-          var offsetY = event.pageY - elem[0].offsetTop;
+
+          var bodyRect = document.body.getBoundingClientRect();
+          var elemRect = elem[0].getBoundingClientRect();
+          var offsetTop   = elemRect.top - bodyRect.top;
+          var offsetLeft   = elemRect.left - bodyRect.left;
+          var offestX = event.pageX - offsetLeft;
+          var offsetY = event.pageY - offsetTop;
+
           event.dataTransfer.setDragImage(element[0], offestX, offsetY);
         }
 
